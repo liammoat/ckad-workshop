@@ -1,4 +1,4 @@
-# Lab Guide - Example lab
+# Lab Guide - Pods, Services and Deployments
 
 ## Prerequisites
 ...
