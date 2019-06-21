@@ -1,14 +1,16 @@
 # Lab 01 - Deploying AKS
 
 ## Prerequisites
-* Access to an Azure Subscription, with sufficient credit.
+* You have access to an Azure Subscription, with sufficient credit.
 
 ## Get setup
-In this lab, you will get setup with Azure Cloud Shell and Azure Kubernetes Service.
+Before you get started, you will setup Azure Cloud Shell and Azure Kubernetes Service.
 
 ### Steps
 
 1. In your browser open Azure Cloud Shell by navigating to https://shell.azure.com.
+
+    > You will use Azure Cloud Shell for all labs in this workshop. See [here](https://docs.microsoft.com/en-us/azure/cloud-shell/using-the-shell-window){:target="_blank"} for some tips and tricks (like how to *copy* and *paste*).
 
 2. Check which subscription you have connected to:
 
