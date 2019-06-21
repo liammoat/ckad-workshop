@@ -3,15 +3,7 @@
 ## Prerequisites
 ...
 
-## Exercise 1 - ??
-...
-
-### Steps
-
-1. 
-2. 
-
-## Exercise 2 - ??
+## Get setup
 ...
 
 ### Steps
