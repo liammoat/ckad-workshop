@@ -1,5 +1,5 @@
 # CKAD Workshop
-Prepare for getting Certified as a Kubernetes Application Developer.
+Getting Certified as a Kubernetes Application Developer.
 
 ## Quick start
 
