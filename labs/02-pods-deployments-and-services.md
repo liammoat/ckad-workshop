@@ -137,13 +137,80 @@ A Pod represents a set of running containers on your cluster - it's the smallest
     ```
 
 ### Deployments
+A deployment is an API object that manages a replicated application. A *Deployment controller* provides declarative updates for Pods and ReplicaSets.
 
-1. 
-2. 
+1. Create a yaml file for a Deployment running a ```nginx``` container, with five replicas, and save it as mydeploy.yaml.
+
+    ```bash
+    kubectl run mydeploy --image=nginx --replicas=5 --dry-run -o yaml > mydeploy.yaml 
+    ```
+
+    > This is another great example where you can use ```--dry-run -o yaml``` to generate the required yaml.
+
+2. Create a Deployment using mydeploy.yaml.
+
+    ```bash
+    kubectl apply -f .\mydeploy.yaml
+    ```
+
+3. View the Deployment 'mydeploy', the associated Replica Set and Pods.
+
+    ```bash
+    kubectl get deploy,rs,po
+    ```
+
+4. Modify the image used by 'mydeploy' to use image ```nginx:1.16.0``` and observe the update as it's applied.
+
+    ```bash
+    # edit image in mydeploy.yaml
+    code mydeploy.yaml
+
+    # apply the updated file
+    kubectl apply -f .\mydeploy.yaml
+
+    # observe how rollowing update gets applied 
+    kubectl get rs -w
+    ```
+
+    **or**
+
+    ```bash
+    # set the deployment image
+    kubectl set image deployment mydeploy mydeploy=nginx:1.16.0
+
+    # observe how rollowing update gets applied 
+    kubectl get rs -w
+    ```
+
+5. View the rollout history for 'mydeploy' and roll back to the previous revision.
+
+    ```bash
+    # view previous rollout revisions and configurations.
+    kubectl rollout history deploy mydeploy
+    
+    # rollback to the previous rollout.
+    kubectl rollout undo deploy mydeploy
+    
+    # observe how rollowing update gets applied 
+    kubectl get rs -w
+    ```
+
+6. Scale 'mydeploy' to 1 instance. 
+
+    ```
+    kubectl scale deploy mydeploy --replicas=1
+    ```
+
+7. Delete all resources in the 'default' namespace 
+
+    ```bash
+    kubectl delete all
+    ```
 
 ### Services
 
 1. 
+
 2. 
 
 ## Fireworks scenario
@@ -152,9 +219,11 @@ A Pod represents a set of running containers on your cluster - it's the smallest
 ### Core goals
 
 1. 
+
 2. 
 
 ### Stretch goals
 
 1. 
+
 2. 
