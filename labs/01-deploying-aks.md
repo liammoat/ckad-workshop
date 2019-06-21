@@ -30,7 +30,7 @@ Before you get started, you will setup Azure Cloud Shell and Azure Kubernetes Se
     bash <(curl -Ls https://aka.ms/ckad-workshop/setup-labs)
     ```
 
-    > This [script](./assets/setup-labs.sh) does the following:
+    > This [script](../assets/setup-labs.sh) does the following:
     > * Create a new resource group.
     > * Deploy an AKS cluster.
     > * Obtains the credentials, allowing you to use ```kubectl```.
