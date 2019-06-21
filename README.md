@@ -1,32 +1,18 @@
 # Microsoft Ready - CKAD
 
-## Setup Labs
+## Quick start
 
-1. In your browser open Azure Cloud Shell. Navigate to https://shell.azure.com.
+```bash
+bash <(curl -Ls https://aka.ms/msready-ckad/setup-labs)
+```
 
-2. Check which subscription you have connected to:
+*Alternatively, follow [Lab 01 - Deploying AKS](./labs/01-deploying-aks.md) for a more comprehensive guide.*
 
-    ```bash
-    az account show
-    ```
+## Labs
 
-3. If you prefer, you can switch to a different subscription:
-
-    ```bash
-    az account set --subscription <subscription-name>
-    ```
-
-4. Within Cloud Shell, run the following command to download and execute the setup script:
-
-    ```bash
-    bash <(curl -Ls https://aka.ms/msready-ckad/setup-labs)
-    ```
-
-    > This [script](./assets/setup-labs.sh) does the following:
-    > * Create a new resource group.
-    > * Deploy an AKS cluster.
-    > * Obtains the credentials, allowing you to use ```kubectl```.
-    > * Clones this GitHub repository.
+1. [Lab 01 - Deploying AKS](./labs/01-deploying-aks.md)
+2. [Lab 02 - Pods, Deployments and Services](./labs/02-pods-deployments-and-services.md)
+3. [Lab 03 - State, config and jobs](./labs/03-state-config-and-jobs.md)
 
 ## Quick links
 
