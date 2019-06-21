@@ -9,8 +9,7 @@ github="https://github.com/liammoat/msready-ckad.git"
 
 # clear existing
 
-cd ~
-rm -rf ./ckad
+rm -rf ~/ckad
 
 # create resource group
 
@@ -35,6 +34,6 @@ az aks get-credentials --resource-group $rg --name $aksName
 # clone github repository
 
 echo "Clone GitHub repository: $github"
-git clone $github ./ckad
-cd ./ckad
+git clone $github ~/ckad
+cd ~/ckad
 code .
