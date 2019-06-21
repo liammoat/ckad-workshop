@@ -19,12 +19,14 @@
 4. Within Cloud Shell, run the following command to download and execute the setup script:
 
     ```bash
-    /bin/sh -c "$(curl -fsSL https://aka.ms/msready-ckad/setup-labs)"
+    bash <(curl -Ls https://aka.ms/msready-ckad/setup-labs)
     ```
 
     > This [script](./assets/setup-labs.sh) does the following:
-    > * Deploy an AKS cluster
-    > * Obtains the credentials, allowing you to use ```kubectl```
+    > * Create a new resource group.
+    > * Deploy an AKS cluster.
+    > * Obtains the credentials, allowing you to use ```kubectl```.
+    > * Clones this GitHub repository.
 
 ## Quick links
 
