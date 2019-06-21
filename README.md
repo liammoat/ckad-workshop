@@ -1,9 +1,10 @@
-# Microsoft Ready - CKAD
+# CKAD Workshop
+Prepare for getting Certified as a Kubernetes Application Developer.
 
 ## Quick start
 
 ```bash
-bash <(curl -Ls https://aka.ms/msready-ckad/setup-labs)
+bash <(curl -Ls https://aka.ms/ckad-workshop/setup-labs)
 ```
 
 *Alternatively, follow [Lab 01 - Deploying AKS](./labs/01-deploying-aks.md) for a more comprehensive guide.*
@@ -16,6 +17,6 @@ bash <(curl -Ls https://aka.ms/msready-ckad/setup-labs)
 
 ## Quick links
 
-* **GitHub:** https://aka.ms/msready-ckad
-* **Setup Labs:** https://aka.ms/msready-ckad/setup-labs
-* **Setup Demos:** https://aka.ms/msready-ckad/setup-demos
+* **GitHub:** https://aka.ms/ckad-workshop
+* **Setup Labs:** https://aka.ms/ckad-workshop/setup-labs
+* **Setup Demos:** https://aka.ms/ckad-workshop/setup-demos

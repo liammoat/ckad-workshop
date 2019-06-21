@@ -5,7 +5,7 @@ echo "Microsoft Ready - Setup Labs Script"
 uniqueKey=$(date +%s | sha256sum | base64 | head -c 5 ; echo)
 rg="ckad-rg-$uniqueKey" 
 aksName="ckad-aks-$uniqueKey"
-github="https://github.com/liammoat/msready-ckad.git"
+github="https://github.com/liammoat/ckad-workshop.git"
 
 # clear existing
 

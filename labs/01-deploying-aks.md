@@ -27,7 +27,7 @@ Before you get started, you will setup Azure Cloud Shell and Azure Kubernetes Se
 4. Within Cloud Shell, run the following command to download and execute the setup script:
 
     ```bash
-    bash <(curl -Ls https://aka.ms/msready-ckad/setup-labs)
+    bash <(curl -Ls https://aka.ms/ckad-workshop/setup-labs)
     ```
 
     > This [script](./assets/setup-labs.sh) does the following:
