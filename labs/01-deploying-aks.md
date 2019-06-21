@@ -1,4 +1,4 @@
-# Lab Guide - Deploying AKS
+# Lab 01 - Deploying AKS
 
 ## Prerequisites
 ...

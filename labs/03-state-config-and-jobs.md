@@ -1,4 +1,4 @@
-# Lab Guide - State, config and jobs
+# Lab 03 - State, config and jobs
 
 ## Prerequisites
 ...

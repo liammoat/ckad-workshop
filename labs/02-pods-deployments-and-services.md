@@ -1,4 +1,4 @@
-# Lab Guide - Pods, Deployments and Services
+# Lab 02 - Pods, Deployments and Services
 
 ## Prerequisites
 ...
