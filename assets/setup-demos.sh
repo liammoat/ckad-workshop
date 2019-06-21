@@ -1,0 +1,1 @@
+echo "Microsoft Ready - Setup Demos Script"
