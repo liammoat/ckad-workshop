@@ -20,3 +20,17 @@ bash <(curl -Ls https://aka.ms/ckad-workshop/setup-labs)
 * **GitHub:** https://aka.ms/ckad-workshop
 * **Setup Labs:** https://aka.ms/ckad-workshop/setup-labs
 * **Setup Demos:** https://aka.ms/ckad-workshop/setup-demos
+
+## Contributors
+
+* **Liam Moat**
+
+    * GitHub: [@liammoat](https://github.com/liammoat)
+    * Twitter: [@liammoat](https://www.twitter.com/liammoat)
+    * Website: [www.liammoat.com](https://www.liammoat.com)
+
+* **Kunal Babre**
+
+    * GitHub: [@kunalbabre](https://github.com/kunalbabre)
+    * Twitter: [@kunalbabre](https://www.twitter.com/kunalbabre)
+    * Website: [www.kunalbabre.com/](https://www.kunalbabre.com/)
