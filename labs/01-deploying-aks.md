@@ -1,5 +1,9 @@
 # Lab 01 - Deploying AKS
 
+* [Prerequisites](#prerequisites)
+* [Get setup](#get-setup)
+---
+
 ## Prerequisites
 * You have access to an Azure Subscription, with sufficient credit.
 
