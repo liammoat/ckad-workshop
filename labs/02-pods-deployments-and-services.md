@@ -1,5 +1,24 @@
 # Lab 02 - Pods, Deployments and Services
 
+* [Prerequisites](#prerequisites)
+* [```kubectl```](#kubectl)
+    * [Explore ```kubectl```](#explore-kubectl)
+    * [Generate yaml](#generate-yaml)
+    * [Export](#export)
+    * [Explain](#explain)
+* [Initial concepts](#initial-concepts)
+    * [Pods](#pods)
+        * [Create a pod using ```kubectl```](#create-a-pod-using-kubectl)
+        * [Create a pod using yaml](#create-a-pod-using-yaml)
+        * [Labels and annotations](#labels-and-annotations)
+        * [Logs and Exec](#logs-and-exec)
+    * [Deployments](#deployments)
+    * [Services](#services)
+* [Fireworks scenario](#fireworks-scenario)
+    * [Core goals](#core-goals)
+    * [Stretch goals](#core-goals)
+---
+
 ## Prerequisites
 * You have completed [Lab 01 - Deploying AKS](./01-deploying-aks.md).
 
