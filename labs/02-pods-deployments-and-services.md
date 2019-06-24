@@ -213,6 +213,72 @@ A Pod represents a set of running containers on your cluster - it's the smallest
     kubectl get pod webserver -o wide -n mynamespace 
     ```
 
+#### Labels and annotations
+
+1. Create 3 pods with names 'nginx1', 'nginx2' and 'nginx3'. All of them should have the label 'app=v1'
+
+    ```bash
+    kubectl run nginx1 --image=nginx --restart=Never --labels=app=v1
+    kubectl run nginx2 --image=nginx --restart=Never --labels=app=v1
+    kubectl run nginx3 --image=nginx --restart=Never --labels=app=v1
+    ```
+
+2. Show all Pods in the default namespace, including the Pods' labels.
+
+    ```bash
+    kubectl get po --show-labels
+    ```
+3. Change the labels of pod 'nginx2' to be 'app=v2'
+
+    ```bash
+    kubectl label po nginx2 app=v2 --overwrite
+    ```
+
+4. Show all Pods and the label 'app' for each Pod
+
+    ```bash
+    kubectl get po -L app
+    ```
+
+5. Get all Pods with the label 'app=v2'.
+
+    ```bash
+    kubectl get po -l app=v2
+
+    # or
+    kubectl get po -l 'app in (v2)'
+    ```
+
+6. Remove the 'app' label from the three Pods you created before.
+
+    ```bash
+    kubectl label po nginx1 nginx2 nginx3 app-
+    
+    # or
+    kubectl label po nginx{1..3} app-
+    
+    # or
+    kubectl label po -l app app-
+    ``` 
+
+7. Annotate Pods 'nginx1', 'nginx2' and 'ngingx3' with "description='my description'".
+
+    ```bash
+    kubectl annotate po nginx1 nginx2 nginx3 description='my description'
+    ```
+
+8. Check the annotations for pod 'nginx1'.
+
+    ```bash
+    kubectl describe po nginx1 | grep -i 'annotations'
+    ```
+
+9. Delete Pods 'nginx1', 'nginx2' and 'ngingx3'
+
+    ```bash
+    kubectl delete po nginx{1..3}
+    ```
+
 #### Logs and Exec 
 
 1. Get logs from 'webserver'.
@@ -305,10 +371,70 @@ A deployment is an API object that manages a replicated application. A *Deployme
     ```
 
 ### Services
+A Service is an abstract way to expose an application running on a set of Pods.
 
-1. 
+1. Create a Pod with image ```nginx``` called 'nginx' and expose its port **80**. Observe that a Pod as well as a Service are created
 
-2. 
+    ```bash
+    kubectl run nginx --image=nginx --restart=Never --port=80 --expose
+    
+    kubectl get pod,svc -l run=nginx
+    kubectl get svc nginx
+    ```
+
+2. Confirm that a ClusterIP has been created. Also, view the cluster's endpoints.
+
+    ```bash
+    # cluster IP
+    kubectl get svc nginx -o jsonpath='{.spec.clusterIP}'
+
+    # endpoints
+    kubectl get ep
+    ```
+
+3. Using the Pod's ClusterIP, create a new temporary Pod using ```busybox``` and 'hit' the IP with ```wget```:
+
+    ```bash
+    # get the Pod's IP
+    kubectl get svc nginx -o jsonpath='{.spec.clusterIP}'
+
+    # run busybox
+    kubectl run busybox --rm --image=busybox -it --restart=Never -- sh
+
+    # from inside the container
+    wget -O- <cluster-id>:80
+    exit
+    ```
+
+4. Convert the ClusterIP to NodePort and find the NodePort port.
+
+    ```bash
+    # edit the service
+    kubectl edit svc nginx
+
+    # change "type: ClusterIP" to "type: NodePort"
+
+    # get the service
+    kubectl get svc 
+    ```
+
+5. Change to service type from the NodePort to LoadBalancer. Find the Public IP and browse to the application.
+
+    ```bash
+    # edit the service
+    kubectl edit svc nginx
+
+    # change "type: ClusterIP" to "type: LoadBalancer"
+
+    # get the assigned external IP
+    kubectl get svc -w
+    ```
+
+6. Delete all resources in the current namespace.
+
+    ```bash
+    kubectl delete all
+    ``` 
 
 ## Fireworks scenario
 ...
