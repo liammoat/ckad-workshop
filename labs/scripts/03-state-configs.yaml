@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  volumes: # specify the volumes
+  - name: myvolume # this name will be used for reference inside the container
+    secret: # we want a secret
+      secretName: mysecret # name of the secret - this must already exist on pod creation
+
+  containers:
+  - image: nginx
+    imagePullPolicy: IfNotPresent
+    name: nginx
+
+    volumeMounts: # your volume mounts are listed here
+    - name: myvolume # the name that you specified in pod.spec.volumes.name
+      mountPath: /etc/secrets # the path inside your container   
+
+    env:
+    - name: option # name of the env variable
+      valueFrom:
+        configMapKeyRef:
+          name: myconfig # name of config map
+          key: foo # name of the entity in config map
+
+    resources:
+      limits:
+       memory: "64Mi"
+       cpu: "100m"

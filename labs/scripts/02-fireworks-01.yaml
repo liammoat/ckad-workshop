@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fireworksapp
+spec:
+  selector:
+    matchLabels:
+      app: fireworksapp
+  replicas: 3 
+  template:
+    metadata:
+      labels:
+        app: fireworksapp
+    spec:
+      containers:
+      - name: firebox
+        image: kunalbabre/fireworks:latest
+        env: 
+          - name: SIGNALR_CS
+            value: Endpoint=https://fireworks.service.signalr.net;AccessKey=IWRMQitFjgoaFVKPnxILBZP+DB0ZNg+ZxtwOe8Ovg54=;Version=1.0;
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fireservice
+spec:
+  selector:
+    app: fireworksapp
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: firecron
+spec:
+  schedule: '*/1 * * * *'
+  jobTemplate:
+    metadata:
+      name: firecron
+    spec:
+      template:
+        spec:
+          containers:
+          - command:
+            - /bin/sh
+            - -c
+            - for i in {1..60};do wget fireservice:80/home/multiShot; sleep 1;done
+            image: busybox
+            name: firecron
+            resources: {}
+          restartPolicy: OnFailure
+  
