@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: mypod1
+spec:
+ volumes:
+  - name: my-volume
+    persistentVolumeClaim: #
+     claimName: mypvc #
+ containers:
+ - image: nginx:1.15.5
+   name: mypod
+   volumeMounts:
+   - name: my-volume
+     mountPath: /etc/foo #
+   resources:
+    limits:
+     memory: "64Mi"
+     cpu: "100m"          

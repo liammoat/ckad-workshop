@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: busyboxvol
+spec:
+ volumes: #
+ - name: myvolume #
+   emptyDir: {} #
+ containers:
+ - image: nginx
+   name: c1
+   args: ['/bin/sh', '-c', 'sleep 3600']
+   volumeMounts: #
+   - name: myvolume #
+     mountPath: /etc/foo #
+   resources:
+    limits:
+     memory: "64Mi"
+     cpu: "100m"
+
+ - image: busybox
+   name: c2
+   args: ['/bin/sh', '-c', 'sleep 3600']
+   volumeMounts: #
+   - name: myvolume #
+     mountPath: /etc/foo #
+   resources:
+    limits:
+     memory: "64Mi"
+     cpu: "100m"     
