@@ -25,6 +25,8 @@
 ## ```kubectl```
 ```kubectl```, said *Kube-Control*, is the  command line interface for running commands against a Kubernetes clusters. In this execise, you will explore some useful features of ```kubectl``` that you may find useful in the CKAD exam.  
 
+kubernetes.io > Documentation > Reference > kubectl CLI > [kubectl Cheat Sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
+
 ### Explore ```kubectl```
 ...
 
@@ -460,12 +462,147 @@ A Service is an abstract way to expose an application running on a set of Pods.
 
 ### Core goals
 
-1. 
 
-2. 
+
+#### Create a namespace called 'fireworks'
+
+<details><summary>show</summary>
+<p>
+
+```bash
+kubectl create namespace fireworks
+```
+
+</p>
+</details>
+
+> **Top tip:** You can set 'fireworks' as the default namespace.
+> 
+> ```bash
+> kubectl config set-context $(kubectl config current-context) --namespace=fireworks
+> ```
+> 
+> **Don't forget to switch back to 'default' later.**
+
+#### Deploy a single Pod called 'fireworks-pod' with image ```kunalbabre/fireworks``` in the 'fireworks' namespace. Expose the Pod on port 80.
+
+<details><summary>show</summary>
+<p>
+
+```bash
+kubectl run fireworks-pod --image=kunalbabre/fireworks --restart=Never --port=80 --expose
+```
+
+Confirm that the ClusterIP has been created. Also, check endpoints.
+
+```bash
+kubectl get svc fireworks-pod # services
+kubectl get ep # endpoints
+```
+
+</p>
+</details>
+
+#### Get the ClusterIP for 'fireworks-pod'. Create a temporary ```busybox``` pod and 'hit' that IP with ```wget```.
+
+<details><summary>show</summary>
+<p>
+
+```bash
+# get the ClusterIP
+kubectl get svc fireworks-public
+
+# run busybox pod
+kubectl run busybox --rm --image=busybox -it --restart=Never -- sh
+
+# from inside the container run
+wget -O- <cluster-ip>:80
+exit
+```
+
+</p>
+</details>
+
+#### Create Deployment called 'fireworks' using the image ```kunalbabre/fireworks``` in the namespace 'fireworks'.
+
+<details><summary>show</summary>
+<p>
+
+```bash
+kubectl run fireworks --image kunalbabre/fireworks -n fireworks
+```
+
+</p>
+</details>
+
+#### Scale the deployment 'fireworks' to 5 replicas. Observe the Pods being created.
+
+<details><summary>show</summary>
+<p>
+
+```bash
+kubectl scale deployment fireworks --replicas=5 -n fireworks
+kubectl get po -w -n fireworks
+```
+
+</p>
+</details>
+
+#### Expose the deployment 'fireworks' on port 80 with service type 'LoadBalancer'. Wait for the external IP to be allocated. Once available, navigate to the IP address.
+
+<details><summary>show</summary>
+<p>
+
+```bash
+kubectl expose deployment fireworks --port 80 -n fireworks
+kubectl get svc -w -n fireworks
+```
+
+</p>
+</details>
+
+#### Update the deployment 'fireworks' to use image ```kunalbabre/fireworks:red```. Check the rollout history and confirm that the replicas are OK.
+
+<details><summary>show</summary>
+<p>
+
+```bash
+# update the image
+kubectl set image deploy fireworks fireworks=kunalbabre/fireworks:red -n fireworks
+
+# check the rollout history
+kubectl rollout history deploy fireworks -n fireworks
+
+# verify the deployment status
+kubectl get deploy fireworks -n fireworks
+
+# check that a new replica set has been created
+kubectl get rs -n fireworks 
+```
+
+</p>
+</details>
+
+#### Rollback the latest rollout and verify that new Pods are using the previous image (kunalbabre/fireworks)
+
+
+<details><summary>show</summary>
+<p>
+
+```bash
+kubectl rollout undo deploy fireworks -n fireworks
+
+# watch the ReplicaSets rollback
+kubectl get rs -w -n fireworks
+
+# select a pod, and verify image is kunalbabre/fireworks
+kubectl get pods -l run=fireworks
+kubectl describe pod <pod-name> | grep -i image 
+```
+
+</p>
+</details>
 
 ### Stretch goals
 
-1. 
-
-2. 
+1. Health Monitoring? 
