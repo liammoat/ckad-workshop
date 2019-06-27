@@ -1,7 +1,6 @@
 # Lab 03 - Fireworks Exercise Part 1
 
-## About Fireworks App
-
+## About the Fireworks application.
 SignalR based application that allows website users to light fireworks and display on all the connected site users. You can light single or multi shot using the app. There is also a button that can stimulate a crash /home/admin. Pressing the button again will make the application run again.
 
 ### Port Exposed
@@ -18,7 +17,6 @@ SignalR based application that allows website users to light fireworks and displ
 
 * Trigger Single - ```/home/singleshot```
 * Trigger Multishot - ```/home/multishot```
-
 
 ### Environment  variables 
 * ```SIGNALR_CS```  : (optional) if you wish to scale-out you can provide connection string for Redis or Azure SignalR
@@ -60,14 +58,14 @@ SignalR based application that allows website users to light fireworks and displ
     </p>
     </details>
 
-1. Expose the deployment ```firework``` ```externally``` on port 80 and name the service ```fireservice```.
+1. Expose the deployment ```firework``` **externally** on port **80** and name the service 'fireservice'.
 
     <details><summary>hint</summary>
     <p>
 
     ```bash
     # You can use expose deployment command
-    kubectl expose deployment <Deployment Name> --name <Service Name> --port=80 --type <Service Type> 
+    kubectl expose deployment <deployment-name> --name <service-name> --port=80 --type <service-type> 
     ```
 
     </p>
@@ -85,13 +83,13 @@ SignalR based application that allows website users to light fireworks and displ
     </p>
     </details>
 
-1. Scale the deployment ```fireworks``` to 5 replicas. Observe the Pods being created.
+1. Scale the deployment 'fireworks' to **5** replicas. Observe the Pods being created.
 
    <details><summary>hint</summary>
     <p>
 
     ```bash
-    # There are few ways you can scale deployment in exam
+    # There are a couple of ways you can scale deployment in exam
 
     # 1. Using edit command to update replica count
     kubectl edit deployment <deployment name>
@@ -106,7 +104,7 @@ SignalR based application that allows website users to light fireworks and displ
     </p>
     </details>
 
-1. Update the deployment ```fireworks``` to use image ```kunalbabre/fireworks:latest```.
+1. Update the deployment 'fireworks' to use image ```kunalbabre/fireworks:latest```.
 
    <details><summary>hint</summary>
     <p>
@@ -126,13 +124,13 @@ SignalR based application that allows website users to light fireworks and displ
 
 ## Streach Goal
 
-1. Configure the ```fireworks``` app deployed to only accept traffic when ready and auto restart if crashed.
+1. Configure the 'fireworks' pods to only accept traffic when ready and auto restart if crashed.
 
    <details><summary>hint</summary>
     <p>
     
-    look for http probes examples
-    [Kubernetes docs here ](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probe)
+    Look for http probes examples
+    [Kubernetes docs here](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probe).
 
     </p>
     </details>
