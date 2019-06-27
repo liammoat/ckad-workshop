@@ -1,22 +1,34 @@
-# Lab 03 - State, config and jobs
+# Lab 04 - State, config and jobs
+
+* [Prerequisites](#prerequisites)
+* [State Persistance](#State-Persistance)
+    * [Multicontainer using emptyDir](#Mounting-emptyDir)
+    * [Persistant Volume using Storage Classes](#Storage-Classes)
+* [Config - ConfigMaps and Secretes](Config)
+* [Jobs](#Jobs)
+---
 
 ## Prerequisites
-...
+* You have completed [Lab 02 - Pods, Deployments and Services](./02-pods-deployments-and-services).
 
-## Initial concepts
-...
+* All operations in this exercise should be performed in the ```default``` namespace.
 
-### State (Volumes)
+    >**Top tip:** You can set 'default' as the default namespace.
+    > ```bash
+    > kubectl config set-context $(kubectl config current-context) --namespace=default
+    > ```
+
+### State Persistance
 
 The Kubernetes Volume is simply a directory on disk mapped to the pod that allows you to store and share data usually beyond the lifetime of a pod.
 
-#### Multi-container Pods with emptyDir
+#### Mounting emptyDir
 
 1. Create busyboxvol pod with two containers (c1 and c2), each one will have the image busybox and will run the 'sleep 3600' command. Make both containers mount an emptyDir at '/etc/foo'.
 
     ```bash
     # Create Pod from the script file
-    kubectl apply -f ~/ckad/labs/scripts/03-state-emptyDir.yaml
+    kubectl apply -f ~/ckad/labs/scripts/04-state-emptyDir.yaml
     ```
 
     > Open YAML File look how Volume and Volume mounts are performed
@@ -43,7 +55,7 @@ The Kubernetes Volume is simply a directory on disk mapped to the pod that all
 
     > Notice that two containers within pod busyboxvol share the directory
 
-#### Persistant Volume using Storage Classes
+#### Storage Classes
 
 1. List all the storage class available on your cluster
 
@@ -55,7 +67,7 @@ kubectl get sc
 
     ```bash
     # Create PersistentVolumeClaim from the script file
-    kubectl apply -f ~/ckad/labs/scripts/03-state-mypvc.yaml
+    kubectl apply -f ~/ckad/labs/scripts/04-state-mypvc.yaml
     ```
 
     > Open YAML File look how PersistentVolumeClaim   is written.
@@ -63,15 +75,15 @@ kubectl get sc
 1. Show the PersistentVolumes and PersistentVolumeClaims of the cluster
 
     ```bash
-    # creation can take time, press ctrl+c to exit watch loop once pv and pvc are created 
-    kubectl get pv,pvc -w 
+    # creation can take time, press ctrl+c to exit watch loop once pv and pvc are created
+    kubectl get pv,pvc -w
     ```
 
-1. Create a nginxvol pod running nginx image and Mount the PersistentVolumeClaim to '/etc/foo'. 
+1. Create a nginxvol pod running nginx image and Mount the PersistentVolumeClaim to '/etc/foo'.
 
     ```bash
     # Create Pod from the script file
-    kubectl apply -f ~/ckad/labs/scripts/03-state-mount-pvc.yaml
+    kubectl apply -f ~/ckad/labs/scripts/04-state-mount-pvc.yaml
     ```
 
    > Open YAML File look how Volume and Volume mounts are performed
@@ -92,7 +104,7 @@ kubectl get sc
 
     ```bash
     # Create Pod from the script file
-    kubectl apply -f ~/ckad/labs/scripts/03-state-mount-pvc.yaml
+    kubectl apply -f ~/ckad/labs/scripts/04-state-mount-pvc.yaml
     ```
 
 1. Connect to the 'nginxvol' pod, and list all files in '/etc/foo'
@@ -123,7 +135,7 @@ kubectl get sc
 
     ```bash
     # Create Pod from the script file
-    kubectl apply -f ~/ckad/labs/scripts/03-state-configs.yaml
+    kubectl apply -f ~/ckad/labs/scripts/04-state-configs.yaml
     ```
 
 1. Check environment variable ```option``` and ```/etc/secrets``` has expected values
@@ -146,30 +158,3 @@ kubectl get sc
     ```bash
     kubectl get cj,job,pod -w # observe every minute job and pods will be created
     ```
-
-## Fireworks scenario
-
-
-
-### Core goals
-
-1. Configure Backplane for Fireworks App to use Azure SignalR ```ConnectionStringGoesHere```
-
-    Fireworks app supports Signalr backplane allowing it to scale out and can be specified using envirnment variable.
-
-    * ```SIGNALR_CS```: Connection string for Redis or Azure SignalR
-
-1. Simulate shooting of 5 multishot every minute, take advantage of parallel and completions properties of Job  (tip: create CronJob)
-
-    ```bash
-    kubectl create cj firecron --image busybox --schedule "*/1 * * * *" --dry-run -o yaml -- /bin/sh -c "do wget foo:80/home/multiShot;sleep 1"
-
-    ## modify file and add completion attribte to 60
-
-    ```
-
-### Stretch goals
-
-1. Modify the deployment hard-coded to populate ```SIGNALR_CS``` env variable from Secrets config
-
-1. Deploy Redis service in your cluster and configure env variable ```SIGNALR_CS``` to use it as connection string instead

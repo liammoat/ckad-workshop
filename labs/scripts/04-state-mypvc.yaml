@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+ name: mypvc
+spec:
+ accessModes:
+ - ReadWriteOnce
+ storageClassName: default
+ resources:
+  requests:
+   storage: 1Gi
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+ name: sleepycronjob
+
+spec:
+  jobTemplate:
+    metadata:
+      name: firecron
+    spec:
+      parallelism: 2
+      completions: 60
+      template:
+        metadata:
+        spec:
+          containers:
+          - command:
+            - /bin/sh
+            - -c
+            - for i in 1 2 3 4 5;do wget foo:80/home/multiShot; sleep 1;done
+            image: busybox
+            name: firecron
+            resources: {}
+          restartPolicy: OnFailure
+  schedule: '*/1 * * * *'
+

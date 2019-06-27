@@ -31,8 +31,11 @@ az aks create \
 echo "Obtain AKS cluster credentials: $aksName"
 az aks get-credentials --resource-group $rg --name $aksName
 
-# clone github repository
+# Create namespace Fireworks 
+echo "Creating namespace fireworks..."
+kubectl create namespace fireworks
 
+# clone github repository
 echo "Clone GitHub repository: $github"
 git clone $github ~/ckad
 cd ~/ckad

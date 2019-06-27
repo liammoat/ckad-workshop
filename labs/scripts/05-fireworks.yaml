@@ -1,0 +1,86 @@
+# create namespace 
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: fireworks
+---
+# create secret 
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysecret
+  namespace: fireworks
+data:
+  SIGNALR_CS: RW5kcG9pbnQ9aHR0cHM6Ly9maXJld29ya3Muc2VydmljZS5zaWduYWxyLm5ldDtBY2Nlc3NLZXk9SVdSTVFpdEZqZ29hRlZLUG54SUxCWlArREIwWk5nK1p4dHdPZThPdmc1ND07VmVyc2lvbj0xLjA7  
+---
+# create deployment 
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fireworksapp
+  namespace: fireworks
+spec:
+  selector:
+    matchLabels:
+      app: fireworksapp
+  replicas: 5 
+  template:
+    metadata:
+      labels:
+        app: fireworksapp
+    spec:
+      containers:
+      - name: firebox
+        image: kunalbabre/fireworks:latest
+        env: 
+         - name: SIGNALR_CS
+           valueFrom:
+            secretKeyRef:
+              name: mysecret
+              key: SIGNALR_CS
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+---
+# Create Service 
+apiVersion: v1
+kind: Service
+metadata:
+  name: fireservice
+  namespace: fireworks
+spec:
+  selector:
+    app: fireworksapp
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 80
+
+---
+# create cronjob
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: firecron
+  namespace: fireworks
+spec:
+  schedule: '*/1 * * * *'
+  jobTemplate:
+    metadata:
+      name: firecron
+    spec:
+      template:
+        spec:
+          containers:
+          - command:
+            - /bin/sh
+            - -c
+            - for i in 1 2 3 4 5;do wget fireservice:80/home/multiShot; sleep 1;done
+            image: busybox
+            name: firecron
+            resources: {}
+          restartPolicy: OnFailure
+  

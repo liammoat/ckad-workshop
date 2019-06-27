@@ -54,7 +54,7 @@ spec:
           - command:
             - /bin/sh
             - -c
-            - for i in {1..60};do wget fireservice:80/home/multiShot; sleep 1;done
+            - for i in 1 2 3 4 5;do wget fireservice:80/home/multiShot; sleep 1;done
             image: busybox
             name: firecron
             resources: {}
