@@ -14,15 +14,14 @@
         * [Logs and Exec](#logs-and-exec)
     * [Deployments](#deployments)
     * [Services](#services)
-* [Fireworks scenario](#fireworks-scenario)
-    * [Core goals](#core-goals)
-    * [Stretch goals](#core-goals)
 ---
 
 ## Prerequisites
+
 * You have completed [Lab 01 - Deploying AKS](./01-deploying-aks.md).
 
 ## ```kubectl```
+
 ```kubectl```, said *Kube-Control*, is the  command line interface for running commands against a Kubernetes clusters. In this execise, you will explore some useful features of ```kubectl``` that you may find useful in the CKAD exam.  
 
 kubernetes.io > Documentation > Reference > kubectl CLI > [kubectl Cheat Sheet](https://kubernetes.io/docs/reference/kubectl/cheatsheet/)
@@ -109,9 +108,11 @@ Writing yaml files quickly is an essential skill in the CKAD exam. In a lot of c
 Exported resources are stripped of cluster-specific
 information. This option is useful to obtain the yaml to recreate a particular object. 
 
-1. 
+1. Get a pod nginx in namespace demospace without any cluster specific information
 
-2.
+    ```bash
+    kubectl get pod nginx -n demospace --export -o yaml
+    ```
 
 ### Explain
 ```kubectl explain``` will explain the given resource. For example, a top level API-object like Pod or a specific field like a Pod's container. 

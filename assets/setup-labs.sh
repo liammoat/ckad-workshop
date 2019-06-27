@@ -35,6 +35,10 @@ az aks get-credentials --resource-group $rg --name $aksName
 echo "Creating namespace fireworks..."
 kubectl create namespace fireworks
 
+echo "Creating namespace demospace..."
+kubectl create namespace demospace
+kubectl run nginx --image nginx --restart Never --namespace demospace
+
 # clone github repository
 echo "Clone GitHub repository: $github"
 git clone $github ~/ckad

@@ -36,7 +36,7 @@ SignalR based application that allows website users to light fireworks and displ
 
 # Exercise Part 1
 
-1. All operations in this exercise should be performed in the ```fireworks``` namespace.
+1. All operations in this exercise should be performed in the ```fireworks``` namespace (already been created for you). 
 
     <details><summary>show</summary>
     <p>
@@ -49,7 +49,7 @@ SignalR based application that allows website users to light fireworks and displ
 
 1. Create Deployment called 'fireworks' using the image ```kunalbabre/fireworks:red``` in the namespace 'fireworks'.
 
-    <details><summary>Hint</summary>
+    <details><summary>hint</summary>
     <p>
 
     ```bash
@@ -62,7 +62,7 @@ SignalR based application that allows website users to light fireworks and displ
 
 1. Expose the deployment ```firework``` ```externally``` on port 80 and name the service ```fireservice```.
 
-    <details><summary>Hint</summary>
+    <details><summary>hint</summary>
     <p>
 
     ```bash
@@ -75,11 +75,11 @@ SignalR based application that allows website users to light fireworks and displ
 
 1. Wait for the external IP to be allocated. Once available, navigate to the IP address in the web browser.
 
-   <details><summary>Hint</summary>
+   <details><summary>hint</summary>
     <p>
 
     ```bash
-    kubectl get svc -w -n fireworks
+    kubectl get svc -w
     ```
 
     </p>
@@ -87,7 +87,7 @@ SignalR based application that allows website users to light fireworks and displ
 
 1. Scale the deployment ```fireworks``` to 5 replicas. Observe the Pods being created.
 
-   <details><summary>Hint</summary>
+   <details><summary>hint</summary>
     <p>
 
     ```bash
@@ -108,13 +108,13 @@ SignalR based application that allows website users to light fireworks and displ
 
 1. Update the deployment ```fireworks``` to use image ```kunalbabre/fireworks:latest```.
 
-   <details><summary>Hint</summary>
+   <details><summary>hint</summary>
     <p>
 
     ```bash
-    # There are few ways to update deployment image
+    # There are couple of ways to update deployment image
 
-    # 1. Using edit command to update container image 
+    # 1. Using edit command to update container image
     kubectl edit deployment <deployment name>
 
     # 2.Using set iamge command
@@ -128,7 +128,7 @@ SignalR based application that allows website users to light fireworks and displ
 
 1. Configure the ```fireworks``` app deployed to only accept traffic when ready and auto restart if crashed.
 
-   <details><summary>Hint</summary>
+   <details><summary>hint</summary>
     <p>
     
     look for http probes examples
