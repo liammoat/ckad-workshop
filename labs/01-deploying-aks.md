@@ -14,7 +14,7 @@ Before you get started, you will setup Azure Cloud Shell and Azure Kubernetes Se
 
 1. In your browser open Azure Cloud Shell by navigating to https://shell.azure.com.
 
-    > You will use Azure Cloud Shell for all labs in this workshop. See [here](https://docs.microsoft.com/en-us/azure/cloud-shell/using-the-shell-window){:target="_blank"} for some tips and tricks (like how to *copy* and *paste*).
+    > You will use Azure Cloud Shell for all labs in this workshop. See [here](https://docs.microsoft.com/en-us/azure/cloud-shell/using-the-shell-window) for some tips and tricks (like how to *copy* and *paste*).
 
 2. Check which subscription you have connected to:
 
