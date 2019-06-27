@@ -3,7 +3,7 @@
 * [Prerequisites](#prerequisites)
 * [Initial concepts](#initial-concepts)
     * [Pods](#pods)
-        * [Create a Pod](#create-a-pod)
+        * [Creating and updating Pods](#creating-and-updating-pods)
         * [Labels and annotations](#labels-and-annotations)
         * [Logs and Exec](#logs-and-exec)
     * [Deployments](#deployments)
@@ -24,7 +24,7 @@
 ### Pods
 A Pod represents a set of running containers on your cluster - it's the smallest and simplest Kubernetes object. 
 
-#### Create a Pod
+#### Creating and updating Pods
 
 1. Using ```kubectl```, create a new Pod called 'webserver' running ```nginx``` image.
 
