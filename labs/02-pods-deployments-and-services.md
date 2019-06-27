@@ -334,7 +334,7 @@ A deployment is an API object that manages a replicated application. A *Deployme
 2. Create a Deployment using mydeploy.yaml.
 
     ```bash
-    kubectl apply -f .\mydeploy.yaml
+    kubectl apply -f mydeploy.yaml
     ```
 
 3. View the Deployment 'mydeploy', the associated Replica Set and Pods.
