@@ -13,7 +13,7 @@ Getting Certified as a Kubernetes Application Developer.
 * **Setup Labs:** https://aka.ms/ckad-workshop/setup-labs
 * **Setup Demos:** https://aka.ms/ckad-workshop/setup-demos
 
-## Reference
+## References
 
 1. [Explore ```kubectl```](./reference/explore-kubectl.md)
 2. [dgkanatsios/CKAD-exercises](https://github.com/dgkanatsios/CKAD-exercises)
