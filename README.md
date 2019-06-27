@@ -17,6 +17,10 @@ bash <(curl -Ls https://aka.ms/ckad-workshop/setup-labs)
 4. [Lab 04 - State, config and jobs](./labs/04-state-config-and-jobs.md)
 5. [Lab 05 - Fireworks Exercise Part 2](./labs/05-fireworks-exercise-part2.md)
 
+## Reference
+
+1. [Explore ```kubectl```](./reference/explore-kubectl.md)
+
 ## Quick links
 
 * **GitHub:** https://aka.ms/ckad-workshop
