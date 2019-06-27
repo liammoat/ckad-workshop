@@ -122,7 +122,7 @@ SignalR based application that allows website users to light fireworks and displ
     </p>
     </details>
 
-## Streach Goal
+## Stretch Goal
 
 1. Configure the 'fireworks' pods to only accept traffic when ready and auto restart if crashed.
 
