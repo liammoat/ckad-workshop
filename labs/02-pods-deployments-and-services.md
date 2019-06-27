@@ -9,11 +9,15 @@
         * [Logs and Exec](#logs-and-exec)
     * [Deployments](#deployments)
     * [Services](#services)
+* [Fireworks scenario](#fireworks-scenario)
+    * [Core Goal](#core-goal)
+    * [Stretch Goal](#stretch-goal)
 ---
 
 ## Prerequisites
 
 * You have completed [Lab 01 - Deploying AKS](./01-deploying-aks.md).
+
 * If you're not familar with ```kubectl```, please take a look at [Explore ```kubectl```](../reference/explore-kubectl.md).
 
 ## Initial concepts
@@ -21,39 +25,27 @@
 ### Pods
 A Pod represents a set of running containers on your cluster - it's the smallest and simplest Kubernetes object. 
 
-#### Create a pod using ```kubectl```
+#### Create a Pod
 
-1. Create a new Pod called 'webserver' running ```nginx``` image.
+1. Using ```kubectl```, create a new Pod called 'webserver' running ```nginx``` image.
 
     ```bash
     kubectl run webserver --image=nginx --restart=Never
     ```
 
-2. Get the status and IP of 'webserver'.
+1. Get the status and IP of Pod 'webserver'.
 
     ```bash
     kubectl get pod webserver -o wide 
     ```
 
-3. Get a detailed description of the pod, including related resources such as events or controllers.
+1. Get a detailed description of the pod, including related resources such as events or controllers.
 
     ```bash
     kubectl describe pod webserver
     ```
 
-4. Delete 'webserver'.
-
-    ```bash
-    kubectl delete pod webserver
-    ```
-
-5. Create a new Pod called 'faultywebserver' running ```nnginx``` image.
-
-    ```kubernetes
-    kubectl run faultywebserver --image=nnginx --restart=Never 
-    ```
-
-6. Get the status and IP of 'faultywebserver'.
+1. Get the status of 'faultywebserver'.
 
     ```
     kubectl get pod faultywebserver -o wide 
@@ -61,7 +53,7 @@ A Pod represents a set of running containers on your cluster - it's the smallest
 
     > Notice that the Pod status is "ImagePullBackOff". Something is wrong.
 
-7. Identify, and resolve, the issue with 'faultywebserver'.
+1. Identify, and resolve, the issue with 'faultywebserver'.
     
     ```
     kubectl describe pod faultywebserver 
@@ -69,105 +61,62 @@ A Pod represents a set of running containers on your cluster - it's the smallest
     kubectl get pod faultywebserver -o wide
     ```
 
-8. Delete all Pods in current namespace 
-
-    ``` 
-    kubectl delete pod --all
-    ```
-
-#### Create a pod using yaml
-
-1. Create new Namespace called 'mynamespace'.
-    
-    ```
-    kubectl create namespace mynamespace
-    ```
-
-2. Using YAML, create a new Pod called 'webserver' running ```nginx``` image in 'mynamespace'.
+1. Using YAML, create a new Pod called 'web' running ```nginx``` image.
 
     ```
-    # use kubectl to generate nginx-pod.yaml
-    kubectl run webserver --image=nginx --restart=Never --dry-run -o yaml > nginx-pod.yaml
+    # use kubectl to generate web-pod.yaml
+    kubectl run webserver --image=nginx --restart=Never --dry-run -o yaml > web-pod.yaml
 
     # view nginx-pod.yaml
-    code nginx-pod.yaml
+    cat web-pod.yaml
     
     # apply the YAML file
-    kubectl apply -f nginx-pod.yaml -n mynamespace
+    kubectl apply -f web-pod.yaml
     ```
     
-    > Notice the use of ```--dry-run -o yaml``` to generate the yaml, which is then piped into nginx-pod.yaml. 
-
-3. Get the status and IP of the pod 'webserver' 
-
-    ```
-    kubectl get pod webserver -o wide -n mynamespace 
-    ```
+    > Notice the use of ```--dry-run -o yaml``` to generate the yaml, which is then piped into web-pod.yaml. 
 
 #### Labels and annotations
 
-1. Create 3 pods with names 'nginx1', 'nginx2' and 'nginx3'. All of them should have the label 'app=v1'
+1. Using ```kubectl```, create a new Pod called 'nginx' running ```nginx``` image. Label the Pod with 'app=v1'.
 
     ```bash
-    kubectl run nginx1 --image=nginx --restart=Never --labels=app=v1
-    kubectl run nginx2 --image=nginx --restart=Never --labels=app=v1
-    kubectl run nginx3 --image=nginx --restart=Never --labels=app=v1
-    ```
-
-2. Show all Pods in the default namespace, including the Pods' labels.
-
-    ```bash
-    kubectl get po --show-labels
-    ```
-3. Change the labels of pod 'nginx2' to be 'app=v2'
-
-    ```bash
-    kubectl label po nginx2 app=v2 --overwrite
-    ```
-
-4. Show all Pods and the label 'app' for each Pod
-
-    ```bash
-    kubectl get po -L app
-    ```
-
-5. Get all Pods with the label 'app=v2'.
-
-    ```bash
-    kubectl get po -l app=v2
-
-    # or
-    kubectl get po -l 'app in (v2)'
-    ```
-
-6. Remove the 'app' label from the three Pods you created before.
-
-    ```bash
-    kubectl label po nginx1 nginx2 nginx3 app-
+    kubectl run nginx --image=nginx --restart=Never --labels=app=v1
     
     # or
-    kubectl label po nginx{1..3} app-
-    
-    # or
-    kubectl label po -l app app-
+
+    kubectl run nginx --image=nginx --restart=Never
+    kubectl label pod nginx app=v1
+    ```
+
+1. Show all Pods in the default namespace, including the Pods' labels.
+
+    ```bash
+    kubectl get pod --show-labels
+    ```
+
+1. Change the label of pod 'nginx' to be 'app=v2'
+
+    ```bash
+    kubectl label pod nginx2 app=v2 --overwrite
+    ```
+
+1. Get all Pods with the label 'app=v2'.
+
+    ```bash
+    kubectl get pod -l app=v2
+    ```
+
+1. Remove the 'app' label from Pod 'nginx'.
+
+    ```bash
+    kubectl label pod nginx app-
     ``` 
 
-7. Annotate Pods 'nginx1', 'nginx2' and 'ngingx3' with "description='my description'".
+1. Annotate Pod 'nginx' with "description='my description'".
 
     ```bash
-    kubectl annotate po nginx1 nginx2 nginx3 description='my description'
-    ```
-
-8. Check the annotations for pod 'nginx1'.
-
-    ```bash
-    kubectl describe po nginx1 | grep -i 'annotations'
-    ```
-
-9. Delete Pods 'nginx1', 'nginx2' and 'ngingx3'
-
-    ```bash
-    kubectl delete po nginx{1..3}
+    kubectl annotate pod nginx description='my description'
     ```
 
 #### Logs and Exec 
@@ -178,16 +127,10 @@ A Pod represents a set of running containers on your cluster - it's the smallest
     kubectl logs webserver -n mynamespace 
     ```
 
-2. Retrieve a list of all the files within the ```nginx``` container running on 'webserver' pod.
+1. Retrieve a list of all the files within the ```nginx``` container running on 'webserver' pod.
 
     ```
     kubectl exec webserver -n mynamespace -- ls
-    ```
-
-4. Delete the namespace 'mynamespace'
-
-    ```bash
-    kubectl delete namespace mynamespace
     ```
 
 ### Deployments
@@ -201,42 +144,29 @@ A deployment is an API object that manages a replicated application. A *Deployme
 
     > This is another great example where you can use ```--dry-run -o yaml``` to generate the required yaml.
 
-2. Create a Deployment using mydeploy.yaml.
+1. Create a Deployment using mydeploy.yaml.
 
     ```bash
     kubectl apply -f mydeploy.yaml
     ```
 
-3. View the Deployment 'mydeploy', the associated Replica Set and Pods.
+1. View the Deployment 'mydeploy', the associated ReplicaSet and Pods.
 
     ```bash
-    kubectl get deploy,rs,po
+    kubectl get deployment,rs,pod
     ```
 
-4. Modify the image used by 'mydeploy' to use image ```nginx:1.16.0``` and observe the update as it's applied.
-
-    ```bash
-    # edit image in mydeploy.yaml
-    code mydeploy.yaml
-
-    # apply the updated file
-    kubectl apply -f .\mydeploy.yaml
-
-    # observe how rollowing update gets applied 
-    kubectl get rs -w
-    ```
-
-    **or**
+1. Modify the image used by 'mydeploy' to use image ```nginx:1.16.0``` and observe the update as it's applied.
 
     ```bash
     # set the deployment image
     kubectl set image deployment mydeploy mydeploy=nginx:1.16.0
 
-    # observe how rollowing update gets applied 
+    # observe how the update gets applied 
     kubectl get rs -w
     ```
 
-5. View the rollout history for 'mydeploy' and roll back to the previous revision.
+1. View the rollout history for 'mydeploy' and roll back to the previous revision.
 
     ```bash
     # view previous rollout revisions and configurations.
@@ -249,45 +179,33 @@ A deployment is an API object that manages a replicated application. A *Deployme
     kubectl get rs -w
     ```
 
-6. Scale 'mydeploy' to 1 instance. 
+1. Scale 'mydeploy' to 2 instance. 
 
     ```
-    kubectl scale deploy mydeploy --replicas=1
-    ```
-
-7. Delete all resources in the 'default' namespace 
-
-    ```bash
-    kubectl delete all
+    kubectl scale deploy mydeploy --replicas=2
     ```
 
 ### Services
 A Service is an abstract way to expose an application running on a set of Pods.
 
-1. Create a Pod with image ```nginx``` called 'nginx' and expose its port **80**. Observe that a Pod as well as a Service are created
+1. Expose the deployment 'mydeploy' on port **80**. Observe that a service is created.
 
     ```bash
-    kubectl run nginx --image=nginx --restart=Never --port=80 --expose
-    
-    kubectl get pod,svc -l run=nginx
-    kubectl get svc nginx
+    kubectl expose deployment mydeploy --port 80
+    kubectl get svc mydeploy
     ```
 
-2. Confirm that a ClusterIP has been created. Also, view the cluster's endpoints.
+1. Confirm that a Cluster IP has been created.
 
     ```bash
-    # cluster IP
-    kubectl get svc nginx -o jsonpath='{.spec.clusterIP}'
-
-    # endpoints
-    kubectl get ep
+    kubectl get svc mydeploy -o jsonpath='{.spec.clusterIP}'
     ```
 
-3. Using the Pod's ClusterIP, create a new temporary Pod using ```busybox``` and 'hit' the IP with ```wget```:
+1. Using the Pod's Cluster IP, create a new temporary Pod using ```busybox``` and 'hit' the IP with ```wget```:
 
     ```bash
-    # get the Pod's IP
-    kubectl get svc nginx -o jsonpath='{.spec.clusterIP}'
+    # get the service's Cluster IP
+    kubectl get svc mydeploy -o jsonpath='{.spec.clusterIP}'
 
     # run busybox
     kubectl run busybox --rm --image=busybox -it --restart=Never -- sh
@@ -297,19 +215,7 @@ A Service is an abstract way to expose an application running on a set of Pods.
     exit
     ```
 
-4. Convert the ClusterIP to NodePort and find the NodePort port.
-
-    ```bash
-    # edit the service
-    kubectl edit svc nginx
-
-    # change "type: ClusterIP" to "type: NodePort"
-
-    # get the service
-    kubectl get svc 
-    ```
-
-5. Change to service type from the NodePort to LoadBalancer. Find the Public IP and browse to the application.
+1. Change to service type of 'mydeploy' from the ClusterIP to LoadBalancer. Find the Public IP address and browse to the application.
 
     ```bash
     # edit the service
@@ -321,8 +227,134 @@ A Service is an abstract way to expose an application running on a set of Pods.
     kubectl get svc -w
     ```
 
-6. Delete all resources in the current namespace.
+    > **Note:** This may take a few minutes to complete.
+
+## Fireworks scenario
+SignalR based application that allows website users to light fireworks and display on all the connected site users. You can light single or multi shot using the app. There is also a button that can stimulate a crash /home/admin. Pressing the button again will make the application run again.
+
+**Port Exposed:**
+* 80
+
+**Images [on Docker Hub](https://cloud.docker.com/u/kunalbabre/repository/docker/kunalbabre/fireworks):**
+
+* **Green:** kunalbabre/fireworks:green
+* **Blue:** kunalbabre/fireworks:blue
+* **Red:** kunalbabre/fireworks:red
+* **Yellow:** kunalbabre/fireworks:yellow
+
+**Trigger fireworks manually:**
+
+* **Trigger Single:** /home/singleshot
+* **Trigger Multishot:** /home/multishot
+
+**Environment  variables:**
+
+* ```SIGNALR_CS```: (optional) if you wish to scale-out you can provide connection string for Redis or Azure SignalR
+* ```APP_COLOR```:  (works with latest tag) you can specify theme color for the app (red,green, blue, yellow)
+
+**Health Monitoring:**
+
+* **Liveness:** /home/isRunning
+    * returns HTTP 200 if the application is alive
+    * returns HTTP 400 if the application has crashed
+
+* **Readiness:** /home/isRunning
+    * returns HTTP 200 if the application is alive
+    * returns HTTP 400 if the application has crashed
+
+### Core Goal
+
+1. All operations in this exercise should be performed in the ```fireworks``` namespace (already been created for you). 
+
+    <details><summary>hint</summary>
+    <p>
 
     ```bash
-    kubectl delete all
+    kubectl config set-context $(kubectl config current-context) --namespace=<namespace>
     ```
+    </p>
+    </details>
+
+1. Create Deployment called 'fireworks' using the image ```kunalbabre/fireworks:red``` in the namespace 'fireworks'.
+
+    <details><summary>hint</summary>
+    <p>
+
+    ```bash
+    kubectl create deployment <name> --image <image name>
+    ```
+
+    </p>
+    </details>
+
+1. Expose the deployment ```firework``` on port **80**. Use a ```LoadBalancer``` service called 'fireservice'.
+
+    <details><summary>hint</summary>
+    <p>
+
+    ```bash
+    kubectl expose deployment <deployment-name> --name <service-name> --port=80 --type <service-type> 
+    ```
+
+    </p>
+    </details>
+
+1. Wait for the external IP to be allocated. Once available, navigate to the IP address in the web browser.
+
+   <details><summary>hint</summary>
+    <p>
+
+    ```bash
+    kubectl get svc -w
+    ```
+
+    </p>
+    </details>
+
+1. Scale the deployment 'fireworks' to **5** replicas. Observe the Pods being created.
+
+   <details><summary>hint</summary>
+    <p>
+
+    ```bash
+    # using edit command to update replica count
+    kubectl edit deployment <deployment name>
+
+    # or, using the scale command
+    kubectl scale deployment <deployment name> --replicas=5
+
+    # finally, you can watch pods being created
+    kubectl get po -w
+    ```
+
+    </p>
+    </details>
+
+1. Update the deployment 'fireworks' to use image ```kunalbabre/fireworks:latest```.
+
+   <details><summary>hint</summary>
+    <p>
+
+    ```bash
+    # using edit command to update container image
+    kubectl edit deployment <deployment name>
+
+    # or, using set image command
+    kubectl set image deploy <deployment name> fireworks=<New Image Name>
+    ```
+
+    </p>
+    </details>
+
+## Stretch Goal
+
+1. Configure the 'fireworks' pods to only accept traffic when ready and auto restart if crashed.
+
+   <details><summary>hint</summary>
+    <p>
+    
+    Look for examples in the
+    [Kubernetes documentation](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes).
+
+    </p>
+    </details>

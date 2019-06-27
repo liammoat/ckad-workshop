@@ -31,11 +31,12 @@ az aks create \
 echo "Obtain AKS cluster credentials: $aksName"
 az aks get-credentials --resource-group $rg --name $aksName
 
-# Create namespace Fireworks 
-echo "Creating namespace fireworks..."
+# setup aks for labs
+echo "Setup $aksName for labs"
+kubectl run faultywebserver --image=nnginx --restart=Never
+
 kubectl create namespace fireworks
 
-echo "Creating namespace demospace..."
 kubectl create namespace demospace
 kubectl run nginx --image nginx --restart Never --namespace demospace
 
