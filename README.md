@@ -30,4 +30,4 @@ Getting Certified as a Kubernetes Application Developer.
 
     * GitHub: [@kunalbabre](https://github.com/kunalbabre)
     * Twitter: [@kunalbabre](https://www.twitter.com/kunalbabre)
-    * Website: [www.kunalbabre.com/](https://www.kunalbabre.com/)
+    * Website: [www.kunalbabre.com](https://www.kunalbabre.com)
