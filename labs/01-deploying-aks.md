@@ -5,6 +5,7 @@
 ---
 
 ## Prerequisites
+
 * You have access to an Azure Subscription, with sufficient credit.
 
 ## Get setup

@@ -9,6 +9,7 @@
 ---
 
 ## Prerequisites
+
 * You have completed [Lab 02 - Pods, Deployments and Services](./02-pods-deployments-and-services).
 
 * All operations in this exercise should be performed in the ```default``` namespace.
