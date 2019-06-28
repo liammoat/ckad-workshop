@@ -1,11 +1,11 @@
-# Lab 04 - State, config and jobs
+# Lab 03 - State, config and jobs
 
 * [Prerequisites](#prerequisites)
-* [State Persistance](#State-Persistance)
-    * [Multicontainer using emptyDir](#Mounting-emptyDir)
-    * [Persistant Volume using Storage Classes](#Storage-Classes)
-* [Config - ConfigMaps and Secretes](Config)
-* [Jobs](#Jobs)
+* [State Persistance](#state-persistance)
+    * [Multicontainer using emptyDir](#mounting-emptydir)
+    * [Persistant Volume using Storage Classes](#storage-classes)
+* [Config - ConfigMaps and Secretes](#config)
+* [Jobs](#jobs)
 ---
 
 ## Prerequisites
