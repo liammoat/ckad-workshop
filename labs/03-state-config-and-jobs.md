@@ -60,9 +60,9 @@ The Kubernetes Volume is simply a directory on disk mapped to the pod that all
 
 1. List all the storage class available on your cluster
 
-```bash
-kubectl get sc
-```
+    ```bash
+    kubectl get sc
+    ```
 
 1. Create a PersistentVolumeClaim for azure storage class ```default```, called ```mypvc```, a request of 1Gi with an access mode of ReadWriteOnce.
 
