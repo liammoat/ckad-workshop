@@ -111,7 +111,7 @@ kubectl get sc
 1. Connect to the 'nginxvol' pod, and list all files in '/etc/foo'
 
     ```bash
-    kubectl exec nginxvol ls /etc/foo/passwd
+    kubectl exec nginxvol ls /etc/foo
     ```
 
     > Notice files persisted, even after pod was deleted and recreated.
