@@ -123,13 +123,13 @@ A Pod represents a set of running containers on your cluster - it's the smallest
 1. Get logs from 'webserver'.
 
     ```
-    kubectl logs webserver -n mynamespace 
+    kubectl logs webserver 
     ```
 
 1. Retrieve a list of all the files within the ```nginx``` container running on 'webserver' pod.
 
     ```
-    kubectl exec webserver -n mynamespace -- ls
+    kubectl exec webserver -- ls
     ```
 
 ### Deployments
