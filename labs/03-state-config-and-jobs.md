@@ -77,7 +77,11 @@ kubectl get sc
 
     ```bash
     # creation can take time, press ctrl+c to exit watch loop once pv and pvc are created
-    kubectl get pv,pvc -w
+    kubectl get pv -w
+    ```
+    
+    ```bash
+    kubectl get pvc -w
     ```
 
 1. Create a nginxvol pod running nginx image and Mount the PersistentVolumeClaim to '/etc/foo'.
@@ -92,7 +96,7 @@ kubectl get sc
 1. Connect to the 'nginxvol' pod, and copy the '/etc/passwd' file to '/etc/foo'
 
     ```bash
-        kubectl exec nginxvol -it -- cp /etc/passwd /etc/foo/passwd
+    kubectl exec nginxvol -it -- cp /etc/passwd /etc/foo/passwd
     ```
 
 1. Delete nginxvol pod
