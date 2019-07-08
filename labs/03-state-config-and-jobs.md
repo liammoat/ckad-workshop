@@ -118,7 +118,7 @@ The Kubernetes Volume is simply a directory on disk mapped to the pod that all
 1. Connect to the 'nginxvol' pod, and list all files in '/etc/foo'
 
     ```bash
-    kubectl exec nginxvol ls /etc/foo/passwd
+    kubectl exec nginxvol ls /etc/foo
     ```
 
     > Notice files persisted, even after pod was deleted and recreated.
