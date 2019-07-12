@@ -37,7 +37,7 @@ The Kubernetes Volume is simply a directory on disk mapped to the pod that all
 
     > Open YAML File look how Volume and Volume mounts are performed
 
-1. Connect to the first container ```c1```  , write current date time in the file ```/etc/foo//mydata.txt```
+1. Connect to the first container ```c1```  , write current date time in the file ```/etc/foo/mydata.txt```
 
     ```bash
     kubectl exec -it busyboxvol -c c1 -- /bin/sh
@@ -53,7 +53,7 @@ The Kubernetes Volume is simply a directory on disk mapped to the pod that all
 
     ```bash
     kubectl exec -it busyboxvol -c c2 -- /bin/sh
-    cat /etc/foo//mydata.txt
+    cat /etc/foo/mydata.txt
     exit
     ```
 
@@ -82,12 +82,12 @@ The Kubernetes Volume is simply a directory on disk mapped to the pod that all
     # creation can take time, press ctrl+c to exit watch loop once pv and pvc are created
     kubectl get pv -w
     ```
-    
+  
     ```bash
     kubectl get pvc -w
     ```
 
-1. Create a nginxvol pod running nginx image and Mount the PersistentVolumeClaim to '/etc/foo'.
+1. Create a ```nginxvol``` pod running nginx image and Mount the PersistentVolumeClaim to '/etc/foo'.
 
     ```bash
     # Create Pod from the script file
@@ -102,13 +102,13 @@ The Kubernetes Volume is simply a directory on disk mapped to the pod that all
     kubectl exec nginxvol -it -- cp /etc/passwd /etc/foo/passwd
     ```
 
-1. Delete nginxvol pod
+1. Delete ```nginxvol``` pod
 
     ```bash
     kubectl delete po nginxvol
     ```
 
-1. Recreate nginxvol pod running nginx image and Mount the PersistentVolumeClaim to '/etc/foo'.
+1. Recreate ```nginxvol``` pod running nginx image and Mount the PersistentVolumeClaim to '/etc/foo'.
 
     ```bash
     # Create Pod from the script file
@@ -202,7 +202,7 @@ SignalR based application that allows website users to light fireworks and displ
 
 ### Core goals
 
-1. Configure Backplane for Fireworks App to use Azure SignalR ```ConnectionStringGoesHere```
+1. Configure Backplane for Fireworks App to use Azure SignalR [Download Encrypted File Here](./scripts/SignalR.zip).
 
     Fireworks app supports Signalr backplane allowing it to scale out and can be specified using envirnment variable.
 
