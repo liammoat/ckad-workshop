@@ -2,10 +2,15 @@ echo "Microsoft Ready - Setup Labs Script"
 
 # setup variables
 
+RANDOM=$$$(date +%s)
+
 uniqueKey=$(date +%s | sha256sum | base64 | head -c 5 ; echo)
 rg="ckad-rg-$uniqueKey" 
 aksName="ckad-aks-$uniqueKey"
 github="https://github.com/liammoat/ckad-workshop.git"
+
+regions=(westus2 centralus eastus2)
+selectedRegion=${regions[$RANDOM % ${#regions[@]} ]}
 
 # clear existing
 
@@ -14,7 +19,9 @@ rm -rf ~/ckad
 # create resource group
 
 echo "Creating resource group: $rg"
-az group create -l westus -n $rg -o table
+echo "Selected region: $selectedRegion"
+
+az group create -l $selectedRegion -n $rg -o table
 
 # deploy aks cluster
 
