@@ -95,7 +95,7 @@ kubectl create configmap special-config --from-literal=special.how=very --from-l
 apiVersion: v1
 kind: Pod
 metadata:
-  name: dapi-test-pod
+  name: mypod-with-config
 spec:
   containers:
     - name: test-container
@@ -111,6 +111,12 @@ spec:
               # Specify the key associated with the value
               key: special.how
   restartPolicy: Never
+```
+
+### After create lets see if env were set correctly
+
+```bash
+kubectl logs mypod-with-config
 ```
 
 ### Secret using YAML
@@ -132,7 +138,7 @@ data:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: mypod
+  name: mypod-with-secret
 spec:
   containers:
   - name: mypod
@@ -145,6 +151,12 @@ spec:
   - name: foo
     secret:
       secretName: mysecret
+```
+
+### After create lets see if env were set correctly
+
+```bash
+kubectl logs mypod-with-secret
 ```
 
 ## Jobs
