@@ -171,7 +171,7 @@ kubectl create job sleepyjob --image busybox  -- sleep 5
 ### CronJob using command line
 
 ```bash
-kubectl create cronjob sleepycron --image busybox --schedule "*/1 * * * *"  -- sleep 5 --dry-run -o yaml
+kubectl create cronjob sleepycron --image busybox --schedule "*/1 * * * *"   --dry-run -o yaml -- sleep 5
 ```
 
 #### Modified version that uses parallelism and completions properties
