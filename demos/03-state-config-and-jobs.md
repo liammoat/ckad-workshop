@@ -174,6 +174,12 @@ kubectl create job sleepyjob --image busybox  -- sleep 5
 kubectl create cronjob sleepycron --image busybox --schedule "*/1 * * * *"   --dry-run -o yaml -- sleep 5
 ```
 
+> Try command if the above fails, it is because you are using older version of AZ CLI
+
+```bash
+kubectl run sleepycron --image=busybox --restart=OnFailure --schedule="*/1 * * * *" --dry-run -o yaml -- sleep 5
+```
+
 #### Modified version that uses parallelism and completions properties
 
 ```yaml
