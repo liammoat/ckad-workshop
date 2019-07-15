@@ -161,11 +161,17 @@ The Kubernetes Volume is simply a directory on disk mapped to the pod that all
     kubectl create cronjob sleepycron --image busybox --schedule "*/1 * * * *" -- sleep 5
     ```
 
+    > Try command below if the above fails, it is because you are using older version of AZ CLI
+    ```bash
+    kubectl run sleepycron --image=busybox --restart=OnFailure --schedule="*/1 * * * *" -- sleep 5
+    ```
+
 1. List all the CronJob, Jobs and Pods
 
     ```bash
     kubectl get cj,job,pod -w # observe every minute job and pods will be created
     ```
+
 ## Fireworks scenario
 
 SignalR based application that allows website users to light fireworks and display on all the connected site users. You can light single or multi shot using the app. There is also a button that can stimulate a crash /home/admin. Pressing the button again will make the application run again.
@@ -237,6 +243,11 @@ SignalR based application that allows website users to light fireworks and displ
     #1. Generate YAML for Cron Job to get started
 
     kubectl create cj firecron --image busybox --schedule "*/1 * * * *" --dry-run -o yaml -- /bin/sh -c "for i in 1 2 3 4 5;do wget fireservice:80/home/multiShot; sleep 1;done" > firecron.yaml
+    
+    # or Try command below if the above fails, it is because you are using older version of AZ CLI
+    ```bash
+    kubectl run sleepycron --image=busybox --restart=OnFailure --schedule="*/1 * * * *" --dry-run -o yaml -- /bin/sh -c "for i in 1 2 3 4 5;do wget fireservice:80/home/multiShot; sleep 1;done" > firecron.yaml
+    ```
 
     ##2. modify file and add completion and parallel attribute
     code firecron.yaml
