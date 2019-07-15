@@ -116,7 +116,7 @@ spec:
 ### After create lets see if env were set correctly
 
 ```bash
-kubectl logs mypod-with-config
+kubectl logs mypod-with-config | grep -i special
 ```
 
 ### Secret using YAML
