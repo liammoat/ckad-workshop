@@ -153,10 +153,11 @@ spec:
       secretName: mysecret
 ```
 
-### After create lets see if env were set correctly
+### After create lets see if volume has data we expected
 
 ```bash
-kubectl logs mypod-with-secret
+kubectl exec mypod-with-secret -it -- ls /etc/foo
+kubectl exec mypod-with-secret -it -- cat /etc/foo/password
 ```
 
 ## Jobs
