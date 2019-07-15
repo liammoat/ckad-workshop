@@ -245,7 +245,6 @@ SignalR based application that allows website users to light fireworks and displ
     kubectl create cj firecron --image busybox --schedule "*/1 * * * *" --dry-run -o yaml -- /bin/sh -c "for i in 1 2 3 4 5;do wget fireservice:80/home/multiShot; sleep 1;done" > firecron.yaml
     
     # or Try command below if the above fails, it is because you are using older version of AZ CLI
-    ```bash
     kubectl run sleepycron --image=busybox --restart=OnFailure --schedule="*/1 * * * *" --dry-run -o yaml -- /bin/sh -c "for i in 1 2 3 4 5;do wget fireservice:80/home/multiShot; sleep 1;done" > firecron.yaml
     ```
 
