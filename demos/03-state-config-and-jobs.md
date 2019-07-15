@@ -56,6 +56,30 @@ spec:
      mountPath: /mnt/data
 ```
 
+### After creating pod lets see how it works
+
+```bash
+#Check volume is mounter and empty 
+kubectl exec mypod1 -it -- ls
+
+#Lets add the file 
+kubectl exec mypod1 -it -- touch  /mnt/data/myfile.txt
+
+#Show file
+kubectl exec mypod1 -it -- ls /mnt/data/
+
+#Delete po and recreate it
+kubectl delete po mypod1 --force --grace-period=0 
+
+#Recreate it 
+kubectl apply -f mount-pvc.yaml
+
+#Show file
+kubectl exec mypod1 -it -- ls /mnt/data/
+
+
+```
+
 ## Configuration
 
 ### ConfigMaps from literal
