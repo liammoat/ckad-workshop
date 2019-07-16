@@ -285,14 +285,14 @@ SignalR based application that allows website users to light fireworks and displ
     <p>
 
     ```bash
-    #1. Create Secret 
+    # create Secret 
     kubectl create secret generic mysecret --from-literal=<name>=<value>
 
-    #2. Modify your deployment and add env variable from secret under  
+    # modify your deployment and add env variable from secret under  
     kubectl edit deploy 
     ```
 
-    here is a sample for Pod using environment variable from secret
+    Sample Pod using environment variable from secret
 
     ```yaml
     apiVersion: v1
