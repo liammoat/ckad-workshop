@@ -214,7 +214,8 @@ SignalR based application that allows website users to light fireworks and displ
 
     * ```SIGNALR_CS```: Connection string for Redis or Azure SignalR
 
-    <details><p>
+    <details><summary>hint</summary>
+    <p>
     here is a sample for Pod using environment variable
 
     ```yaml
@@ -236,7 +237,7 @@ SignalR based application that allows website users to light fireworks and displ
 
 1. Simulate shooting of 10's of multishot every 1 minute, take advantage of parallel and completions properties of Job  (tip: create CronJob)
 
-    <details><summary>Hint</summary>
+    <details><summary>hint</summary>
     <p>
 
     ```bash
