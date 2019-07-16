@@ -97,7 +97,7 @@ A Pod represents a set of running containers on your cluster - it's the smallest
 1. Change the label of pod 'nginx' to be 'app=v2'
 
     ```bash
-    kubectl label pod nginx2 app=v2 --overwrite
+    kubectl label pod nginx app=v2 --overwrite
     ```
 
 1. Get all Pods with the label 'app=v2'.
@@ -218,7 +218,7 @@ A Service is an abstract way to expose an application running on a set of Pods.
 
     ```bash
     # edit the service
-    kubectl edit svc nginx
+    kubectl edit svc mydeploy
 
     # change "type: ClusterIP" to "type: LoadBalancer"
 
