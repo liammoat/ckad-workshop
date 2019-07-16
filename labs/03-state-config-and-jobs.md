@@ -158,7 +158,7 @@ The Kubernetes Volume is simply a directory on disk mapped to the pod that all
 1. Create CronJob called sleepycron that runs pod busy box with ```sleep 5``` command every minute
 
     ```bash
-    kubectl create cronjob sleepycron --image busybox --schedule "*/1 * * * *" -- sleep 5
+    kubectl create cronjob sleepycron --image=busybox --schedule "*/1 * * * *" -- sleep 5
     ```
 
     > Try command below if the above fails, it is because you are using older version of AZ CLI
