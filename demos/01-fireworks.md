@@ -4,6 +4,6 @@
 
 1. Invite attendees to interact with the site using their device
 
-1. CloudyFun is a container  .NET Core application that uses SignalR to enable real-time interaction
+1. CloudyFun is a containerised .NET Core application that uses SignalR to enable real-time interaction
 
 1. Exercise section in the labs will help us build and deploy this cloud-native application
