@@ -210,13 +210,10 @@ SignalR based application that allows website users to light fireworks and displ
 
 1. Configure Backplane for Fireworks App to use Azure SignalR [Download Encrypted File Here](./scripts/SignalR.zip).
 
-    Fireworks app supports Signalr backplane allowing it to scale out and can be specified using envirnment variable.
-
-    * ```SIGNALR_CS```: Connection string for Redis or Azure SignalR
+    Fireworks app supports Signalr backplane allowing it to scale out and can be specified using an envirnment variable called ```SIGNALR_CS```. The value should be a connection string for Redis or Azure SignalR
 
     <details><summary>hint</summary>
     <p>
-    here is a sample for Pod using environment variable
 
     ```yaml
     apiVersion: v1
@@ -288,7 +285,7 @@ SignalR based application that allows website users to light fireworks and displ
 
 1. Modify the deployment to populate ```SIGNALR_CS``` env variable from Secrets config
 
-    <details><summary>Hint</summary>
+    <details><summary>hint</summary>
     <p>
 
     ```bash
