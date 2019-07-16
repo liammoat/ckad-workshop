@@ -210,7 +210,7 @@ A Service is an abstract way to expose an application running on a set of Pods.
     kubectl run busybox --rm --image=busybox -it --restart=Never -- sh
 
     # from inside the container
-    wget -O- <cluster-id>:80
+    wget -O- <cluster-ip>:80
     exit
     ```
 
